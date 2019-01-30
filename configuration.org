@@ -107,7 +107,7 @@ Why not?
 #+BEGIN_SRC emacs-lisp
 (use-package zenburn-theme
     :config
-    (load-theme 'zenburn))
+    (load-theme 'zenburn t))
 ;;  (use-package solarized-theme
 ;;    :ensure t
 ;;    :init
