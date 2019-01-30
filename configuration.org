@@ -1,0 +1,121 @@
+#+TITLE: Emacs configuration
+
+* Configure =use-package=
+
+I use =use-package= to install and configure my packages. My =init.el= includes
+the initial setup for =package.el= and ensures that =use-package= is installed,
+since I wanna do that right away.
+
+This makes sure that =use-package= will install the package if it's not already
+available. It also means that I should be able to open Emacs for the first time
+on a fresh Debian box and have my whole environment automatically installed. I'm
+not /totally/ sure about that, but we're gettin' close.
+
+#+BEGIN_SRC emacs-lisp
+  (setq use-package-always-ensure t)
+#+END_SRC
+
+Always compile packages, and use the newest version available.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package auto-compile
+    :config (auto-compile-on-load-mode))
+
+    (setq load-prefer-newer t)
+#+END_SRC
+
+Auto update
+
+#+BEGIN_SRC emacs-lisp
+(use-package auto-package-update
+  :config
+  (setq auto-package-update-delete-old-versions t)
+  (setq auto-package-update-hide-results t)
+  (auto-package-update-maybe))
+#+END_SRC
+
+* Use sensible-defaults.el
+
+Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for some basic settings.
+
+(load-file "~/.emacs.d/sensible-defaults.el/sensible-defaults.el")
+(sensible-defaults/use-all-settings)
+(sensible-defaults/use-all-keybindings)
+
+* =evil-mode=
+
+Use =evil=.
+
+#+BEGIN_SRC emacs-lisp
+(use-package evil
+  :config
+  (evil-mode 1))
+#+END_SRC
+
+Enable =surround= everywhere.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-surround
+    :config
+    (global-evil-surround-mode 1))
+#+END_SRC
+
+Use =evil= with Org agendas.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-org
+    :after org
+    :config
+    (add-hook 'org-mode-hook 'evil-org-mode)
+    (add-hook 'evil-org-mode-hook
+              (lambda () (evil-org-set-key-theme)))
+    (require 'evil-org-agenda)
+    (evil-org-agenda-set-keys))
+#+END_SRC
+
+* UI preferences
+** Tweak window chrome
+
+#+BEGIN_SRC emacs-lisp
+  (tool-bar-mode 0)
+#+END_SRC
+
+There's a tiny scroll bar that appears in the minibuffer window. This disables
+that:
+
+#+BEGIN_SRC emacs-lisp
+  (set-window-scroll-bars (minibuffer-window) nil nil)
+#+END_SRC
+
+The default frame title isn't useful. This binds it to the name of the current
+project:
+
+#+BEGIN_SRC emacs-lisp
+  ;; (setq frame-title-format '((:eval (projectile-project-name))))
+#+END_SRC
+
+** Use fancy lambdas
+
+Why not?
+
+#+BEGIN_SRC emacs-lisp
+  (global-prettify-symbols-mode t)
+#+END_SRC
+
+** Load a theme
+
+#+BEGIN_SRC emacs-lisp
+  (use-package solarized-theme
+    :ensure t
+    :init
+    ;; Don't change the font for some headings and titles
+    (setq solarized-use-variable-pitch nil)
+    ;; Avoid all font-size changes
+    (setq solarized-height-minus-1 1.0)
+    (setq solarized-height-plus-1 1.0)
+    (setq solarized-height-plus-2 1.0)
+    (setq solarized-height-plus-3 1.0)
+    (setq solarized-height-plus-4 1.0)
+    :config
+    (load-theme 'solarized-dark t))
+#+END_SRC
