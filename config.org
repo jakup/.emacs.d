@@ -1,6 +1,6 @@
 #+TITLE: Emacs configuration
 
-* Configure =use-package=
+* hrs use-package stuff
 
 I use =use-package= to install and configure my packages. My =init.el= includes
 the initial setup for =package.el= and ensures that =use-package= is installed,
@@ -15,14 +15,17 @@ not /totally/ sure about that, but we're gettin' close.
   (setq use-package-always-ensure t)
 #+END_SRC
 
+** =auto-compile=
+
 Always compile packages, and use the newest version available.
 
 #+BEGIN_SRC emacs-lisp
   (use-package auto-compile
     :config (auto-compile-on-load-mode))
-
-    (setq load-prefer-newer t)
+  (setq load-prefer-newer t)
 #+END_SRC
+
+** =auto-package-update=
 
 Auto update
 
@@ -34,17 +37,16 @@ Auto update
   (auto-package-update-maybe))
 #+END_SRC
 
-* =evil-mode=
-
-Use =evil=.
-
+* evil-mode
+** =evil=
+   
 #+BEGIN_SRC emacs-lisp
 (use-package evil
   :config
   (evil-mode 1))
 #+END_SRC
 
-Enable =surround= everywhere.
+** =evil-surround=
 
 #+BEGIN_SRC emacs-lisp
   (use-package evil-surround
@@ -52,7 +54,7 @@ Enable =surround= everywhere.
     (global-evil-surround-mode 1))
 #+END_SRC
 
-Use =evil= with Org agendas.
+** =evil-org=
 
 #+BEGIN_SRC emacs-lisp
   (use-package evil-org
@@ -65,8 +67,14 @@ Use =evil= with Org agendas.
     (evil-org-agenda-set-keys))
 #+END_SRC
 
-* UI preferences
-** Tweak window chrome
+* user interface
+** tweaks
+
+Turn off the startup screen
+
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-screen t)
+#+END_SRC
 
 Turn off the tool bar
 
@@ -88,48 +96,30 @@ project:
   ;; (setq frame-title-format '((:eval (projectile-project-name))))
 #+END_SRC
 
+** =spacemacs-theme=
 
-** set the theme
-
-solarized-light
-
-#+BEGIN_SRC emacs-lisp
-(use-package solarized-theme
-  :config
-  (load-theme 'solarized-light t)
-  (let ((line (face-attribute 'mode-line :underline)))
-    (set-face-attribute 'mode-line          nil :overline   line)
-    (set-face-attribute 'mode-line-inactive nil :overline   line)
-    (set-face-attribute 'mode-line-inactive nil :underline  line)
-    (set-face-attribute 'mode-line          nil :box        nil)
-    (set-face-attribute 'mode-line-inactive nil :box        nil)
-    (set-face-attribute 'mode-line-inactive nil :background "#f9f2d9")))
-#+END_SRC
-
-** =moody= modeline
+spacemacs-dark
 
 #+BEGIN_SRC emacs-lisp
-(use-package moody
-  :config
-  (setq x-underline-at-descent-line t)
-  (moody-replace-mode-line-buffer-identification)
-  (moody-replace-vc-mode))
+(use-package spacemacs-theme
+  :defer t
+  :init
+  (load-theme 'spacemacs-dark t))
 #+END_SRC
-** =minions= hide all minor modes
+
+** =powerline=
 
 #+BEGIN_SRC emacs-lisp
-(use-package minions
+(use-package powerline
   :config
-  (setq minions-mode-line-lighter ""
-        minions-mode-line-delimiters '("" . ""))
-  (minions-mode 1))
+  (powerline-default-theme))
 #+END_SRC
 
-** default font and resizing
+** @hrs font stuff
 
 #+BEGIN_SRC emacs-lisp
 (setq hrs/default-font "Menlo")
-(setq hrs/default-font-size 11)
+(setq hrs/default-font-size 14)
 (setq hrs/current-font-size hrs/default-font-size)
 
 (setq hrs/font-change-increment 1.1)
