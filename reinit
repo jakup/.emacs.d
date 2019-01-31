@@ -1,0 +1,4 @@
+#!/bin/bash
+cd ~/.emacs.d
+rm -rf elpa config.el
+git checkout init.el
