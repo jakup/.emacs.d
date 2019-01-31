@@ -27,5 +27,5 @@ There are two things you can do about this warning:
   (package-refresh-contents)
   (package-install 'use-package))
 
-(org-babel-load-file "~/.emacs.d/configuration.org")
+(org-babel-load-file "~/.emacs.d/config.org")
 
