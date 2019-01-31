@@ -173,3 +173,10 @@ global-hl-line-mode softly highlights the background color of the line containin
 #+BEGIN_SRC emacs-lisp
 (global-hl-line-mode)
 #+END_SRC
+
+* =magit=
+
+#+BEGIN_SRC emacs-lisp
+(use-package magit
+  :bind (("C-x g" . magit-status)))
+#+END_SRC
