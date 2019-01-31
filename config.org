@@ -1,5 +1,11 @@
 #+TITLE: Emacs configuration
 
+Thanks to Harry R. Schwartz for publishing his .emacs.d and giving
+presentations on emacs which I have used to create my personal emacs
+configuration files.
+
+[[https://github.com/hrs][Github - Harry R. Schwartz]]
+
 * hrs use-package stuff
 
 I use =use-package= to install and configure my packages. My =init.el= includes
